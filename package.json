@@ -1,0 +1,35 @@
+{
+  "name": "benchy-cli",
+  "license": "MIT",
+  "bin": {
+    "benchy": "src/cli.js"
+  },
+  "dependencies": {
+    "cli-spinner": "^0.2.10",
+    "cli-table3": "^0.6.0",
+    "lighthouse": "^6.1.1",
+    "node-jq": "^1.11.1",
+    "prompts": "^2.3.2",
+    "yargs": "^15.4.1"
+  },
+  "description": "Benchy ====",
+  "version": "0.0.1",
+  "main": "src/cli.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/briganti/benchy.git"
+  },
+  "keywords": [
+    "lighthouse",
+    "report"
+  ],
+  "author": "Michael Vial <michael.vial@busbud.com>",
+  "bugs": {
+    "url": "https://github.com/briganti/benchy/issues"
+  },
+  "homepage": "https://github.com/briganti/benchy#readme"
+}

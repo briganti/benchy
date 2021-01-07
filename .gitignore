@@ -1,0 +1,4 @@
+.DS_Store
+.npmrc
+audits
+node_modules

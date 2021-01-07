@@ -12,8 +12,8 @@
     "prompts": "^2.3.2",
     "yargs": "^15.4.1"
   },
-  "description": "Benchy ====",
-  "version": "0.0.1",
+  "description": "A CLI tool for comparing performance metrics between web pages",
+  "version": "0.0.2",
   "main": "src/cli.js",
   "devDependencies": {},
   "scripts": {

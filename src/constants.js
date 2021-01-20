@@ -1,7 +1,9 @@
 const xdg = require('@folder/xdg');
 const dirs = xdg();
 
-exports.AUDITS_FOLDER = `${dirs.data}/benchy/audits`;
+const APP_FOLDER = `${dirs.data}/benchy`;
+exports.APP_FOLDER = APP_FOLDER;
+exports.AUDITS_FOLDER = `${APP_FOLDER}/audits`;
 
 const NONE = 0;
 const HIGHER_IS_BETTER = 1;

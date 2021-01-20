@@ -16,10 +16,13 @@
   "description": "A CLI tool for comparing performance metrics between web pages",
   "version": "0.0.2",
   "main": "src/cli.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "prettier": "^2.2.1"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "preuninstall": "node src/scripts/pre-uninstall.js"
+    "prettier": "prettier --config ./prettier.config.js --write .",
+    "preuninstall": "node src/scripts/pre-uninstall.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",

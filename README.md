@@ -1,5 +1,4 @@
-Benchy
-====
+# Benchy
 
 This is a small CLI tool for comparing performance metrics between web pages with Lighthouse.
 
@@ -18,7 +17,6 @@ $ benchy audit https://website.com -c 10 -n website_A
 ```
 
 Create a new audit named `n` and generate `c` lighthouse reports with the given URL.
-
 
 ## List
 

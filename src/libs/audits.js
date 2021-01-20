@@ -1,6 +1,6 @@
-const fs = require("fs");
-const path = require("path");
-const AUDITS_FOLDER = require("../constants").AUDITS_FOLDER;
+const fs = require('fs');
+const path = require('path');
+const AUDITS_FOLDER = require('../constants').AUDITS_FOLDER;
 
 let instance = null;
 
@@ -13,10 +13,8 @@ class Audits {
     } else {
       const audits = fs.readdirSync(AUDITS_FOLDER);
 
-      audits.forEach((auditName) => {
-        this.state[auditName] = fs.readdirSync(
-          path.join(AUDITS_FOLDER, auditName)
-        );
+      audits.forEach(auditName => {
+        this.state[auditName] = fs.readdirSync(path.join(AUDITS_FOLDER, auditName));
       });
     }
   }
@@ -51,12 +49,12 @@ class Audits {
   }
 
   isValidAudits(auditNames) {
-    if (typeof auditNames === "string") {
+    if (typeof auditNames === 'string') {
       return !!this.state[auditNames];
     }
 
     if (auditNames && auditNames.length) {
-      return auditNames.every((name) => !!this.state[name]);
+      return auditNames.every(name => !!this.state[name]);
     }
 
     return false;

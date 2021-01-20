@@ -1,6 +1,6 @@
-const fs = require("fs");
+const fs = require('fs');
 
-const APP_FOLDER = require("../constants").APP_FOLDER;
+const APP_FOLDER = require('../constants').APP_FOLDER;
 
 function deleteAudits() {
   try {

@@ -1,7 +1,7 @@
-const CliTable = require("cli-table3");
-const colors = require("colors/safe");
-const { LIGHTHOUSE_DATA } = require("../constants");
-const math = require("./math");
+const CliTable = require('cli-table3');
+const colors = require('colors/safe');
+const { LIGHTHOUSE_DATA } = require('../constants');
+const math = require('./math');
 
 function toScore(value) {
   return `${Math.floor(value * 100)}`;
@@ -36,8 +36,7 @@ function format(unit, value) {
 }
 
 function colorHeat(type, a) {
-  const comparisonMode = LIGHTHOUSE_DATA.find(({ name }) => name === type)
-    .comparisonMode;
+  const comparisonMode = LIGHTHOUSE_DATA.find(({ name }) => name === type).comparisonMode;
 
   const intA = parseInt(a);
   if (intA < -25) {
@@ -55,12 +54,9 @@ class Table {
   constructor(reports) {
     this.reports = reports;
     this.table = new CliTable({
-      head: [
-        "",
-        ...this.getReportKeys().map((k) => ({ colSpan: 2, content: k })),
-      ],
+      head: ['', ...this.getReportKeys().map(k => ({ colSpan: 2, content: k }))],
       style: {
-        head: ["cyan"],
+        head: ['cyan'],
         border: [],
       },
     });
@@ -75,7 +71,7 @@ class Table {
       {
         colSpan: 1 + this.getReportKeys().length * 2,
         content: colors.bold(title),
-        hAlign: "center",
+        hAlign: 'center',
       },
     ]);
   }
@@ -93,15 +89,13 @@ class Table {
         const rsd = math.relativeStandardDerivation(this.reports[key][type]);
 
         if (!reference_average) {
-          reference_average = math.average(
-            this.reports[this.getReportKeys()[0]][type]
-          );
+          reference_average = math.average(this.reports[this.getReportKeys()[0]][type]);
         }
 
         values.push({
           colSpan: 2,
           content: `${format(info.unit, average)}`,
-          vAlign: "center",
+          vAlign: 'center',
         });
 
         if (!compact) {
@@ -115,7 +109,7 @@ class Table {
               )
             );
           } else {
-            variation.push(colors.gray("-"));
+            variation.push(colors.gray('-'));
           }
         }
       }

@@ -1,11 +1,10 @@
-const lighthouse = require("lighthouse");
-const chromeLauncher = require("chrome-launcher");
-const Spinner = require("cli-spinner").Spinner;
-const audits = require("../libs/audits");
+const lighthouse = require('lighthouse');
+const chromeLauncher = require('chrome-launcher');
+const Spinner = require('cli-spinner').Spinner;
+const audits = require('../libs/audits');
 
-exports.command = "audit <url> [c] [n]";
-exports.desc =
-  "Audit <url> with lighthouse [c] times and save results under [n] name";
+exports.command = 'audit <url> [c] [n]';
+exports.desc = 'Audit <url> with lighthouse [c] times and save results under [n] name';
 exports.handler = async function (argv) {
   const url = argv.url;
   const name = argv.n;
@@ -13,19 +12,19 @@ exports.handler = async function (argv) {
 
   const auditsInstance = audits.getInstance();
 
-  const spinner = new Spinner("%s launching chrome");
-  spinner.setSpinnerString("⣾⣽⣻⢿⡿⣟⣯⣷");
+  const spinner = new Spinner('%s launching chrome');
+  spinner.setSpinnerString('⣾⣽⣻⢿⡿⣟⣯⣷');
   spinner.start();
 
   const chrome = await chromeLauncher.launch({
-    chromeFlags: ["--headless"],
+    chromeFlags: ['--headless'],
   });
 
   const options = {
-    output: "json",
-    onlyCategories: ["performance"],
+    output: 'json',
+    onlyCategories: ['performance'],
     port: chrome.port,
-    throttlingMethod: "devtools",
+    throttlingMethod: 'devtools',
   };
 
   for (let i = 0; i < count; i++) {
@@ -34,7 +33,7 @@ exports.handler = async function (argv) {
     auditsInstance.addAuditReport(name, report);
   }
 
-  spinner.setSpinnerTitle("%s shuting down chrome");
+  spinner.setSpinnerTitle('%s shuting down chrome');
   await chrome.kill();
   spinner.stop(true);
 };

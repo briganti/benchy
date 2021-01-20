@@ -1,7 +1,7 @@
-const path = require("path");
-const jq = require("node-jq");
-const audits = require("./audits");
-const { AUDITS_FOLDER, LIGHTHOUSE_DATA } = require("../constants");
+const path = require('path');
+const jq = require('node-jq');
+const audits = require('./audits');
+const { AUDITS_FOLDER, LIGHTHOUSE_DATA } = require('../constants');
 
 function buildJqFilters() {
   return `{
@@ -27,9 +27,9 @@ exports.generateReports = async function (auditNames) {
 
     for (const file of reportFiles) {
       const jsonPath = path.join(AUDITS_FOLDER, auditName, file);
-      const output = await jq.run(filter, jsonPath, { output: "json" });
+      const output = await jq.run(filter, jsonPath, { output: 'json' });
 
-      Object.keys(output).forEach((name) => {
+      Object.keys(output).forEach(name => {
         reports[auditName][name].push(output[name]);
       });
     }

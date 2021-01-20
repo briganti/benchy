@@ -1,9 +1,11 @@
+const path = require("path");
 const xdg = require('@folder/xdg');
+
 const dirs = xdg();
 
-const APP_FOLDER = `${dirs.data}/benchy`;
+const APP_FOLDER = path.join(dirs.data, 'benchy');
 exports.APP_FOLDER = APP_FOLDER;
-exports.AUDITS_FOLDER = `${APP_FOLDER}/audits`;
+exports.AUDITS_FOLDER = path.join(APP_FOLDER, 'audits');
 
 const NONE = 0;
 const HIGHER_IS_BETTER = 1;

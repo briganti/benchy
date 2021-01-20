@@ -9,7 +9,7 @@ class Audits {
     this.state = {};
 
     if (!fs.existsSync(AUDITS_FOLDER)) {
-      fs.mkdirSync(AUDITS_FOLDER);
+      fs.mkdirSync(AUDITS_FOLDER, { recursive: true });
     } else {
       const audits = fs.readdirSync(AUDITS_FOLDER);
 

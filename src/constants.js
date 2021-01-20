@@ -1,4 +1,7 @@
-exports.AUDITS_FOLDER = "./audits";
+const xdg = require('@folder/xdg');
+const dirs = xdg();
+
+exports.AUDITS_FOLDER = `${dirs.data}/benchy/audits`;
 
 const NONE = 0;
 const HIGHER_IS_BETTER = 1;

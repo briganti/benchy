@@ -2,6 +2,7 @@ const lighthouse = require('lighthouse');
 const chromeLauncher = require('chrome-launcher');
 const Spinner = require('cli-spinner').Spinner;
 const audits = require('../libs/audits');
+const view = require('../libs/view');
 
 exports.command = 'audit <url> [c] [n]';
 exports.desc = 'Audit <url> with lighthouse [c] times and save results under [n] name';
@@ -36,4 +37,6 @@ exports.handler = async function (argv) {
   spinner.setSpinnerTitle('%s shuting down chrome');
   await chrome.kill();
   spinner.stop(true);
+
+  view([name]);
 };

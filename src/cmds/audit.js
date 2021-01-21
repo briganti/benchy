@@ -4,12 +4,13 @@ const Spinner = require('cli-spinner').Spinner;
 const audits = require('../libs/audits');
 const view = require('../libs/view');
 
-exports.command = 'audit <url> [c] [n]';
-exports.desc = 'Audit <url> with lighthouse [c] times and save results under [n] name';
+exports.command = 'audit [c] <urls...>';
+exports.desc = 'Audit a list of <urls> with lighthouse [c] times';
 exports.handler = async function (argv) {
-  const url = argv.url;
-  const name = argv.n;
-  const count = argv.c;
+  const urls = argv.urls;
+  // const name = argv.n || 'tmp';
+  const count = argv.c || 1;
+  const audit_names = [];
 
   const auditsInstance = audits.getInstance();
 
@@ -28,15 +29,25 @@ exports.handler = async function (argv) {
     throttlingMethod: 'devtools',
   };
 
-  for (let i = 0; i < count; i++) {
-    spinner.setSpinnerTitle(`%s running lighthouse audit ${i + 1}/${count}`);
-    const { report } = await lighthouse(url, options);
-    auditsInstance.addAuditReport(name, report);
+  for (let url of urls) {
+    const name = `tmp_${Date.now()}`;
+
+    for (let i = 0; i < count; i++) {
+      spinner.setSpinnerTitle(
+        `%s running lighthouse audit ${i + 1 + audit_names.length * count}/${
+          count * urls.length
+        }`
+      );
+      const { report } = await lighthouse(url, options);
+      auditsInstance.addAuditReport(name, report);
+    }
+
+    audit_names.push(name);
   }
 
   spinner.setSpinnerTitle('%s shuting down chrome');
   await chrome.kill();
   spinner.stop(true);
 
-  view([name]);
+  view(audit_names);
 };

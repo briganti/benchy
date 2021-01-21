@@ -84,14 +84,14 @@ exports.LIGHTHOUSE_DATA = [
   {
     name: 'transfertSize',
     query:
-      '(.finalUrl as $url | .audits."network-requests".details.items[] | select(.resourceType=="Document"  and .url==$url).transferSize)',
+      '(.finalUrl as $url | .audits."network-requests".details.items[] | select(.resourceType=="Document"  and .url==$url and .statusCode==200).transferSize)',
     comparisonMode: LOWER_IS_BETTER,
     unit: UNIT_KB,
   },
   {
     name: 'resourceSize',
     query:
-      '(.finalUrl as $url | .audits."network-requests".details.items[] | select(.resourceType=="Document"  and .url==$url).resourceSize)',
+      '(.finalUrl as $url | .audits."network-requests".details.items[] | select(.resourceType=="Document"  and .url==$url and .statusCode==200)).resourceSize',
     comparisonMode: LOWER_IS_BETTER,
     unit: UNIT_KB,
   },

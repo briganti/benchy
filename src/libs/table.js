@@ -35,6 +35,15 @@ function format(unit, value) {
   }
 }
 
+function getNameFromUrls(urls) {
+  const urlRegex = /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n?]+)(?:[^\/]+)?([^?]+)?/;
+
+  return urls.map(function (url) {
+    const chunks = urlRegex.exec(url);
+    return `${chunks[1]}\n${chunks[2]}`;
+  });
+}
+
 function colorHeat(type, a) {
   const comparisonMode = LIGHTHOUSE_DATA.find(({ name }) => name === type).comparisonMode;
 
@@ -53,8 +62,19 @@ function colorHeat(type, a) {
 class Table {
   constructor(reports) {
     this.reports = reports;
+    const reportsUrls = this.getReportKeys().map(k => {
+      return this.reports[k].url.toString();
+    });
+    this.reportNames = getNameFromUrls(reportsUrls);
+
     this.table = new CliTable({
-      head: ['', ...this.getReportKeys().map(k => ({ colSpan: 2, content: k }))],
+      head: [
+        '',
+        ...this.getReportKeys().map((k, i) => ({
+          colSpan: 2,
+          content: this.reportNames[i],
+        })),
+      ],
       style: {
         head: ['cyan'],
         border: [],

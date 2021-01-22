@@ -8,7 +8,6 @@ exports.command = 'audit [c] <urls...>';
 exports.desc = 'Audit a list of <urls> with lighthouse [c] times';
 exports.handler = async function (argv) {
   const urls = argv.urls;
-  // const name = argv.n || 'tmp';
   const count = argv.c || 1;
   const audit_names = [];
 
@@ -30,7 +29,7 @@ exports.handler = async function (argv) {
   };
 
   for (let url of urls) {
-    const name = `tmp_${Date.now()}`;
+    const name = `audit_${Date.now()}`;
 
     for (let i = 0; i < count; i++) {
       spinner.setSpinnerTitle(

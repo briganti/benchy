@@ -11,11 +11,18 @@ const NONE = 0;
 const HIGHER_IS_BETTER = 1;
 const LOWER_IS_BETTER = 2;
 
+const NO_UNIT = 0;
 const UNIT_KB = 1;
 const UNIT_MS = 2;
 const UNIT_SCORE = 3;
 
 exports.LIGHTHOUSE_DATA = [
+  {
+    name: 'url',
+    query: '.finalUrl',
+    comparisonMode: NONE,
+    unit: NO_UNIT,
+  },
   {
     name: 'serverResponseTime',
     query: '.audits."server-response-time".numericValue',

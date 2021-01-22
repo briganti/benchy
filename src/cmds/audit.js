@@ -4,11 +4,18 @@ const Spinner = require('cli-spinner').Spinner;
 const audits = require('../libs/audits');
 const view = require('../libs/view');
 
-exports.command = 'audit [c] <urls...>';
+exports.command = 'audit [c] [d] [p] [i] [l] [t] <urls...>';
 exports.desc = 'Audit a list of <urls> with lighthouse [c] times';
 exports.handler = async function (argv) {
   const urls = argv.urls;
   const count = argv.c || 1;
+
+  const documentStats = argv.d || false;
+  const pageMetrics = argv.p || false;
+  const interactiveMetrics = argv.i || false;
+  const layoutMetrics = argv.l || false;
+  const tasks = argv.t || false;
+
   const audit_names = [];
 
   const auditsInstance = audits.getInstance();
@@ -48,5 +55,9 @@ exports.handler = async function (argv) {
   await chrome.kill();
   spinner.stop(true);
 
-  view(audit_names);
+  const filters =
+    documentStats || pageMetrics || interactiveMetrics || layoutMetrics || tasks
+      ? { documentStats, pageMetrics, interactiveMetrics, layoutMetrics, tasks }
+      : {};
+  view(audit_names, filters);
 };

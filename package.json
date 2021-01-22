@@ -1,6 +1,6 @@
 {
   "name": "benchy-cli",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A CLI tool for comparing performance metrics between web pages",
   "bin": {
     "benchy": "src/cli.js"

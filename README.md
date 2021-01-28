@@ -2,6 +2,8 @@
 
 This is a small CLI tool for comparing performance metrics between web pages with Lighthouse.
 
+![demo](./docs/demo.gif)
+
 # Installation
 
 ```

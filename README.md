@@ -1,40 +1,51 @@
-# Benchy
+<div align="center">
+<h1><strong>benchy</strong></h1>
 
-This is a small CLI tool for comparing performance metrics between web pages with Lighthouse.
+A small CLI tool for comparing performance metrics between web pages with Lighthouse.
 
 ![demo](./docs/demo.gif)
+</div>
 
-# Installation
+## Installation
 
 ```
 yarn global add benchy-cli
 ```
 
-# Usage
+## Commands
 
-## Audit
+### Audit
 
 ```bash
-$ benchy audit https://website.com -c 10 -n website_A
+$ benchy audit <urls...>
 ```
 
-Create a new audit named `n` and generate `c` lighthouse reports with the given URL.
+Launch lighthouse audits for `<urls...>`  and show report in the terminal. Multiple URLs can be provided.
 
-## List
+#### Options
+
+- `-c [NUM]` - Number of audits per url. default: 1.
+- `-d` - Output the Document Stats section.
+- `-p` - Output the Page Metrics section.
+- `-i` - Output the Interactive Metrics section.
+- `-l` - Output the Layout Metrics section.
+- `-t` - Output the Task section.
+
+### List
 
 ```bash
 $ benchy list
 ```
 
-List all audits
+List all saved audits.
 
-## Report
+### Report
 
 ```bash
 $ benchy report website_A website_B
 ```
 
-Compare performance metrics.
+Compare saved audits.
 
 ```bash
 ┌─────────────┬────────────────┬────────────────┐
@@ -46,10 +57,10 @@ Compare performance metrics.
 └─────────────┴────────┴───────┴────────┴───────┘
 ```
 
-## Clean
+### Clean
 
 ```bash
 $ benchy clean
 ```
 
-Delete all audits
+Delete all audits.

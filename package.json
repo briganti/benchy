@@ -18,6 +18,11 @@
     "preuninstall": "node src/scripts/pre-uninstall.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run lint"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/briganti/benchy.git"
@@ -47,6 +52,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-promise": "^4.2.1",
+    "husky": "^4.3.8",
     "prettier": "^2.2.1"
   },
   "bugs": {

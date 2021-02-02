@@ -4,6 +4,7 @@
 A small CLI tool for comparing performance metrics between web pages with Lighthouse.
 
 ![demo](./docs/demo.gif)
+
 </div>
 
 ## Installation
@@ -20,7 +21,7 @@ yarn global add benchy-cli
 $ benchy audit <urls...>
 ```
 
-Launch lighthouse audits for `<urls...>`  and show report in the terminal. Multiple URLs can be provided.
+Launch lighthouse audits for `<urls...>` and show report in the terminal. Multiple URLs can be provided.
 
 #### Options
 

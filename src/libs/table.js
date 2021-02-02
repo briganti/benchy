@@ -1,7 +1,7 @@
-const CliTable = require('cli-table3');
-const colors = require('colors/safe');
-const { LIGHTHOUSE_DATA } = require('../constants');
-const math = require('./math');
+const CliTable = require("cli-table3");
+const colors = require("colors/safe");
+const { LIGHTHOUSE_DATA } = require("../constants");
+const math = require("./math");
 
 function toScore(value) {
   return `${Math.floor(value * 100)}`;
@@ -36,7 +36,7 @@ function format(unit, value) {
 }
 
 function getNameFromUrls(urls) {
-  const urlRegex = /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n?]+)(?:[^\/]+)?([^?]+)?/;
+  const urlRegex = /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n?]+)(?:[^/]+)?([^?]+)?/;
 
   return urls.map(function (url) {
     const chunks = urlRegex.exec(url);
@@ -45,7 +45,8 @@ function getNameFromUrls(urls) {
 }
 
 function colorHeat(type, a) {
-  const comparisonMode = LIGHTHOUSE_DATA.find(({ name }) => name === type).comparisonMode;
+  const comparisonMode = LIGHTHOUSE_DATA.find(({ name }) => name === type)
+    .comparisonMode;
 
   const intA = parseInt(a);
   if (intA < -25) {
@@ -62,21 +63,21 @@ function colorHeat(type, a) {
 class Table {
   constructor(reports) {
     this.reports = reports;
-    const reportsUrls = this.getReportKeys().map(k => {
+    const reportsUrls = this.getReportKeys().map((k) => {
       return this.reports[k].url.toString();
     });
     this.reportNames = getNameFromUrls(reportsUrls);
 
     this.table = new CliTable({
       head: [
-        '',
+        "",
         ...this.getReportKeys().map((k, i) => ({
           colSpan: 2,
           content: this.reportNames[i],
         })),
       ],
       style: {
-        head: ['cyan'],
+        head: ["cyan"],
         border: [],
       },
     });
@@ -91,16 +92,16 @@ class Table {
       {
         colSpan: 1 + this.getReportKeys().length * 2,
         content: colors.bold(title),
-        hAlign: 'center',
+        hAlign: "center",
       },
     ]);
   }
 
   addReport(types) {
-    for (let type of types) {
+    for (const type of types) {
       const values = [];
       const variation = [];
-      let reference_average;
+      let referenceAverage;
       const info = LIGHTHOUSE_DATA.find(({ name }) => name === type);
       const compact = info.comparisonMode === 0;
 
@@ -108,14 +109,16 @@ class Table {
         const average = math.average(this.reports[key][type]);
         const rsd = math.relativeStandardDerivation(this.reports[key][type]);
 
-        if (!reference_average) {
-          reference_average = math.average(this.reports[this.getReportKeys()[0]][type]);
+        if (!referenceAverage) {
+          referenceAverage = math.average(
+            this.reports[this.getReportKeys()[0]][type]
+          );
         }
 
         values.push({
           colSpan: 2,
           content: `${format(info.unit, average)}`,
-          vAlign: 'center',
+          vAlign: "center",
         });
 
         if (!compact) {
@@ -125,11 +128,11 @@ class Table {
             variation.push(
               colorHeat(
                 type,
-                toPercentage((average - reference_average) / reference_average)
+                toPercentage((average - referenceAverage) / referenceAverage)
               )
             );
           } else {
-            variation.push(colors.gray('-'));
+            variation.push(colors.gray("-"));
           }
         }
       }

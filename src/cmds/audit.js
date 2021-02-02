@@ -1,11 +1,11 @@
-const lighthouse = require('lighthouse');
-const chromeLauncher = require('chrome-launcher');
-const Spinner = require('cli-spinner').Spinner;
-const audits = require('../libs/audits');
-const view = require('../libs/view');
+const lighthouse = require("lighthouse");
+const chromeLauncher = require("chrome-launcher");
+const Spinner = require("cli-spinner").Spinner;
+const audits = require("../libs/audits");
+const view = require("../libs/view");
 
-exports.command = 'audit [c] [d] [p] [i] [l] [t] <urls...>';
-exports.desc = 'Audit a list of <urls> with lighthouse [c] times';
+exports.command = "audit [c] [d] [p] [i] [l] [t] <urls...>";
+exports.desc = "Audit a list of <urls> with lighthouse [c] times";
 exports.handler = async function (argv) {
   const urls = argv.urls;
   const count = argv.c || 1;
@@ -16,31 +16,31 @@ exports.handler = async function (argv) {
   const layoutMetrics = argv.l || false;
   const tasks = argv.t || false;
 
-  const audit_names = [];
+  const auditNames = [];
 
   const auditsInstance = audits.getInstance();
 
-  const spinner = new Spinner('%s launching chrome');
-  spinner.setSpinnerString('⣾⣽⣻⢿⡿⣟⣯⣷');
+  const spinner = new Spinner("%s launching chrome");
+  spinner.setSpinnerString("⣾⣽⣻⢿⡿⣟⣯⣷");
   spinner.start();
 
   const chrome = await chromeLauncher.launch({
-    chromeFlags: ['--headless'],
+    chromeFlags: ["--headless"],
   });
 
   const options = {
-    output: 'json',
-    onlyCategories: ['performance'],
+    output: "json",
+    onlyCategories: ["performance"],
     port: chrome.port,
-    throttlingMethod: 'devtools',
+    throttlingMethod: "devtools",
   };
 
-  for (let url of urls) {
+  for (const url of urls) {
     const name = `audit_${Date.now()}`;
 
     for (let i = 0; i < count; i++) {
       spinner.setSpinnerTitle(
-        `%s running lighthouse audit ${i + 1 + audit_names.length * count}/${
+        `%s running lighthouse audit ${i + 1 + auditNames.length * count}/${
           count * urls.length
         }`
       );
@@ -48,10 +48,10 @@ exports.handler = async function (argv) {
       auditsInstance.addAuditReport(name, report);
     }
 
-    audit_names.push(name);
+    auditNames.push(name);
   }
 
-  spinner.setSpinnerTitle('%s shuting down chrome');
+  spinner.setSpinnerTitle("%s shuting down chrome");
   await chrome.kill();
   spinner.stop(true);
 
@@ -59,5 +59,5 @@ exports.handler = async function (argv) {
     documentStats || pageMetrics || interactiveMetrics || layoutMetrics || tasks
       ? { documentStats, pageMetrics, interactiveMetrics, layoutMetrics, tasks }
       : {};
-  view(audit_names, filters);
+  view(auditNames, filters);
 };

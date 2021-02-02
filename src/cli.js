@@ -1,2 +1,3 @@
 #!/usr/bin/env node
-require('yargs').commandDir('cmds').demandCommand().help().argv;
+/* eslint-disable no-unused-expressions */
+require("yargs").commandDir("cmds").demandCommand().help().argv;
